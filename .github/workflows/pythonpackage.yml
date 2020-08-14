@@ -23,7 +23,8 @@ jobs:
         pip install -r requirements.txt
         pip install -r test-requirements.txt
     - name: Lint with Black
-      uses: psf/black@stable
+      # Switch to psf/black@stable when released
+      uses: psf/black@master
     - name: Test with pytest
       run: |
         pip install pytest
