@@ -1,0 +1,4 @@
+black
+mock
+pytest-cov
+codecov
