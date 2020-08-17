@@ -9,11 +9,12 @@ class CsvTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
+    @patch("dsegithub.csv.open", create=True)
     @patch("csv.DictReader")
-    def test_csv(self, mock_csv_reader):
+    def test_csv(self, mock_csv_reader, mock_open):
         mock_csv_reader.return_value = [{"test": "value1"}, {"test": "value2"}]
 
-        csv_out = dsegithub.csv.read_csv("/Users/kcoakley/Downloads/form.csv")
+        csv_out = dsegithub.csv.read_csv("test.csv")
         self.assertIsInstance(csv_out, list)
         self.assertIsInstance(csv_out[0], dict)
 
