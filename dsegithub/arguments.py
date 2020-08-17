@@ -40,6 +40,15 @@ def parse_arguments(args):
         default=os.environ.get("ACCESS_TOKEN", None),
     )
 
+    parser.add_argument(
+        "--org",
+        metavar="organization",
+        dest="organization",
+        help="GitHub Organization",
+        required=True,
+        default=os.environ.get("GITHUB_ORGANIZATION", None),
+    )
+
     # Verify username, password and access_token are not all None
     if (
         parser.parse_args(args).username is None
