@@ -6,7 +6,7 @@ from github.GithubException import BadCredentialsException
 from github.GithubException import UnknownObjectException
 from mock import MagicMock
 from mock import patch
-import dsegithub.organization as organization
+import dsegithub.organization
 import unittest
 
 
@@ -23,7 +23,7 @@ class OrganizationTestCase(unittest.TestCase):
 
         g = Github("abc123")
 
-        org = organization.get_organization(g, "test")
+        org = dsegithub.organization.get_organization(g, "test")
         self.assertEqual(org.name, "test")
 
     @patch.object(Github, "get_organization", autospec=True)
@@ -33,7 +33,7 @@ class OrganizationTestCase(unittest.TestCase):
         g = Github("abc123")
 
         with self.assertRaises(SystemExit) as se:
-            organization.get_organization(g, "test")
+            dsegithub.organization.get_organization(g, "test")
         self.assertEqual(se.exception.code, "Invalid GitHub Credentials!")
 
     @patch.object(Github, "get_organization", autospec=True)
@@ -43,5 +43,5 @@ class OrganizationTestCase(unittest.TestCase):
         g = Github("abc123")
 
         with self.assertRaises(SystemExit) as se:
-            organization.get_organization(g, "test")
+            dsegithub.organization.get_organization(g, "test")
         self.assertEqual(se.exception.code, "Organization test not found!")

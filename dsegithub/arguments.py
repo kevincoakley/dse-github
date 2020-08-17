@@ -50,6 +50,15 @@ def parse_arguments(args):
     )
 
     parser.add_argument(
+        "--team",
+        metavar="team",
+        dest="team",
+        help="GitHub Team",
+        required=True,
+        default=os.environ.get("GITHUB_TEAM", None),
+    )
+
+    parser.add_argument(
         "--file",
         metavar="file",
         dest="file",
