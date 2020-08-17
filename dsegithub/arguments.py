@@ -49,6 +49,15 @@ def parse_arguments(args):
         default=os.environ.get("GITHUB_ORGANIZATION", None),
     )
 
+    parser.add_argument(
+        "--file",
+        metavar="file",
+        dest="file",
+        help="CSV file with GitHub Username and Repository",
+        required=True,
+        default=os.environ.get("CSV_FILE", None),
+    )
+
     # Verify username, password and access_token are not all None
     if (
         parser.parse_args(args).username is None
