@@ -7,7 +7,7 @@ import sys
 
 def get_organization(g, organization_name):
     """
-    Get GitHub Organization
+    Get GitHub Organization instance
     :param g: GitHub instance
     :param organization_name: name of the organization to get
     :return: GitHub Organization instance
