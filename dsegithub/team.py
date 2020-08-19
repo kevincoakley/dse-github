@@ -14,3 +14,13 @@ def create_get_team(organization, team_name):
             return team
 
     return organization.create_team(team_name)
+
+
+def add_repository(team, repository):
+    """
+    Added GitHub Repository to GitHub Team
+    :param team: GitHub Team instance
+    :param repository: GitHub Repository instance
+    :return: None
+    """
+    return team.add_to_repos(repository)
