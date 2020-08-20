@@ -29,3 +29,31 @@ def create_repository(organization, repository_name):
         return organization.create_repo(repository_name, private=True)
     except GithubException:
         return None
+
+
+def create_readme(repository):
+    """
+    Create README.md file for the Repository
+    :param repository: GitHub Repository instance
+    :return: True if README.md was created, otherwise False
+    """
+    message = "Added welcome message to README.md"
+    content = (
+        "%s\n========\n\nThis is your MAS-DSE Private GitHub Repository.\n\n"
+        "A directory has been created for each course.\n\n"
+        "See [https://mas-dse.github.io/startup/](https://mas-dse.github.io/startup/) "
+        "for startup instructions." % repository.name
+    )
+
+    try:
+        # Check if README.md exists
+        repository.get_readme()
+    except UnknownObjectException:
+        try:
+            # Only create the README.md if one doesn't exist
+            repository.create_file("README.md", message, content)
+            return True
+        except GithubException:
+            return False
+
+    return False
