@@ -57,3 +57,27 @@ def create_readme(repository):
             return False
 
     return False
+
+
+def create_folder(repository, folder):
+    """
+    Create folder/README.md for the Repository
+    :param repository: GitHub Repository instance
+    :param folder: Name of the folder to create
+    :return: True if README.md was created, otherwise False
+    """
+    message = "Created %s/README.md" % folder
+    content = "%s\n======\n\nCourse directory for %s" % (folder, folder)
+
+    try:
+        # Check if folder/README.md exists
+        repository.get_contents("%s/README.md" % folder)
+    except UnknownObjectException:
+        try:
+            # Only create folder/README.md if it doesn't exist
+            repository.create_file("%s/README.md" % folder, message, content)
+            return True
+        except GithubException:
+            return False
+
+    return False

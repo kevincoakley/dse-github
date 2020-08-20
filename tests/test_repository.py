@@ -95,3 +95,41 @@ class RepositoryTestCase(unittest.TestCase):
         repository = dsegithub.repository.create_repository(org, "test-repo")
         readme = dsegithub.repository.create_readme(repository)
         self.assertFalse(readme)
+
+    @patch.object(Github, "get_organization")
+    def test_create_folder(self, mock_github):
+        mock_github().create_repo().get_contents.side_effect = UnknownObjectException(
+            status=404, data=""
+        )
+
+        g = Github("abc123")
+        org = dsegithub.organization.get_organization(g, "test")
+
+        repository = dsegithub.repository.create_repository(org, "test-repo")
+        folder = dsegithub.repository.create_folder(repository, "test-folder")
+        self.assertTrue(folder)
+
+    @patch.object(Github, "get_organization")
+    def test_create_folder_failed(self, mock_github):
+        mock_github().create_repo().get_contents.side_effect = UnknownObjectException(
+            status=404, data=""
+        )
+        mock_github().create_repo().create_file.side_effect = GithubException(
+            status=422, data=""
+        )
+
+        g = Github("abc123")
+        org = dsegithub.organization.get_organization(g, "test")
+
+        repository = dsegithub.repository.create_repository(org, "test-repo")
+        folder = dsegithub.repository.create_folder(repository, "test-folder")
+        self.assertFalse(folder)
+
+    @patch.object(Github, "get_organization")
+    def test_create_folder_exists(self, mock_github):
+        g = Github("abc123")
+        org = dsegithub.organization.get_organization(g, "test")
+
+        repository = dsegithub.repository.create_repository(org, "test-repo")
+        folder = dsegithub.repository.create_folder(repository, "test-folder")
+        self.assertFalse(folder)
