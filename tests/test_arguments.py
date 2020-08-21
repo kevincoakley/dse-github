@@ -12,7 +12,7 @@ class ArgumentsTestCase(unittest.TestCase):
         # Test that not including username, password or access_token will cause a sys.exit(2)
         with self.assertRaises(SystemExit) as se:
             dsegithub.arguments.parse_arguments(
-                ["--org", "test", "--team", "test", "--file", "test.csv"]
+                ["--team", "test", "--file", "test.csv"]
             )
         self.assertEqual(se.exception.code, 2)
 
@@ -20,16 +20,7 @@ class ArgumentsTestCase(unittest.TestCase):
         # Test that including only username will cause a sys.exit(2)
         with self.assertRaises(SystemExit) as se:
             dsegithub.arguments.parse_arguments(
-                [
-                    "--username",
-                    "user",
-                    "--org",
-                    "test",
-                    "--team",
-                    "test",
-                    "--file",
-                    "test.csv",
-                ]
+                ["--username", "user", "--team", "test", "--file", "test.csv",]
             )
         self.assertEqual(se.exception.code, 2)
 
@@ -37,16 +28,7 @@ class ArgumentsTestCase(unittest.TestCase):
         # Test that including only password will cause a sys.exit(2)
         with self.assertRaises(SystemExit) as se:
             dsegithub.arguments.parse_arguments(
-                [
-                    "--password",
-                    "pass",
-                    "--org",
-                    "test",
-                    "--team",
-                    "test",
-                    "--file",
-                    "test.csv",
-                ]
+                ["--password", "pass", "--team", "test", "--file", "test.csv",]
             )
         self.assertEqual(se.exception.code, 2)
 
@@ -58,8 +40,6 @@ class ArgumentsTestCase(unittest.TestCase):
                 "user",
                 "--password",
                 "pass",
-                "--org",
-                "test",
                 "--team",
                 "test",
                 "--file",
@@ -72,16 +52,7 @@ class ArgumentsTestCase(unittest.TestCase):
 
     def test_access_token(self):
         args = dsegithub.arguments.parse_arguments(
-            [
-                "--access-token",
-                "abc123",
-                "--org",
-                "test",
-                "--team",
-                "test",
-                "--file",
-                "test.csv",
-            ]
+            ["--access-token", "abc123", "--team", "test", "--file", "test.csv",]
         )
         self.assertIsNone(args.username)
         self.assertIsNone(args.password)

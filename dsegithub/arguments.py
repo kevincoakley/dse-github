@@ -41,15 +41,6 @@ def parse_arguments(args):
     )
 
     parser.add_argument(
-        "--org",
-        metavar="organization",
-        dest="organization",
-        help="GitHub Organization",
-        required=True,
-        default=os.environ.get("GITHUB_ORGANIZATION", None),
-    )
-
-    parser.add_argument(
         "--team",
         metavar="team",
         dest="team",
