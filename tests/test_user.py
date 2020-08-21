@@ -31,5 +31,4 @@ class UserTestCase(unittest.TestCase):
 
         g = Github("abc123")
 
-        user = dsegithub.user.get_user(g, "test")
-        self.assertIsNone(user)
+        self.assertIsNone(dsegithub.user.get_user(g, "test"))

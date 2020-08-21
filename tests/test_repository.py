@@ -22,8 +22,7 @@ class RepositoryTestCase(unittest.TestCase):
         g = Github("abc123")
         org = dsegithub.organization.get_organization(g, "test")
 
-        repository = dsegithub.repository.get_repository(org, "test-repo")
-        self.assertIsNone(repository)
+        self.assertIsNone(dsegithub.repository.get_repository(org, "test-repo"))
 
     @patch.object(Github, "get_organization")
     def test_get_repository_exist(self, mock_github):
@@ -44,8 +43,7 @@ class RepositoryTestCase(unittest.TestCase):
         g = Github("abc123")
         org = dsegithub.organization.get_organization(g, "test")
 
-        repository = dsegithub.repository.create_repository(org, "test-repo")
-        self.assertIsNone(repository)
+        self.assertIsNone(dsegithub.repository.create_repository(org, "test-repo"))
 
     @patch.object(Github, "get_organization")
     def test_create_repository(self, mock_github):
@@ -69,8 +67,7 @@ class RepositoryTestCase(unittest.TestCase):
         org = dsegithub.organization.get_organization(g, "test")
 
         repository = dsegithub.repository.create_repository(org, "test-repo")
-        readme = dsegithub.repository.create_readme(repository)
-        self.assertTrue(readme)
+        self.assertTrue(dsegithub.repository.create_readme(repository))
 
     @patch.object(Github, "get_organization")
     def test_create_readme_failed(self, mock_github):
@@ -85,8 +82,7 @@ class RepositoryTestCase(unittest.TestCase):
         org = dsegithub.organization.get_organization(g, "test")
 
         repository = dsegithub.repository.create_repository(org, "test-repo")
-        readme = dsegithub.repository.create_readme(repository)
-        self.assertFalse(readme)
+        self.assertFalse(dsegithub.repository.create_readme(repository))
 
     @patch.object(Github, "get_organization")
     def test_create_readme_exists(self, mock_github):
@@ -94,8 +90,7 @@ class RepositoryTestCase(unittest.TestCase):
         org = dsegithub.organization.get_organization(g, "test")
 
         repository = dsegithub.repository.create_repository(org, "test-repo")
-        readme = dsegithub.repository.create_readme(repository)
-        self.assertFalse(readme)
+        self.assertFalse(dsegithub.repository.create_readme(repository))
 
     @patch.object(Github, "get_organization")
     def test_create_folder(self, mock_github):
@@ -107,8 +102,7 @@ class RepositoryTestCase(unittest.TestCase):
         org = dsegithub.organization.get_organization(g, "test")
 
         repository = dsegithub.repository.create_repository(org, "test-repo")
-        folder = dsegithub.repository.create_folder(repository, "test-folder")
-        self.assertTrue(folder)
+        self.assertTrue(dsegithub.repository.create_folder(repository, "test-folder"))
 
     @patch.object(Github, "get_organization")
     def test_create_folder_failed(self, mock_github):
@@ -123,8 +117,7 @@ class RepositoryTestCase(unittest.TestCase):
         org = dsegithub.organization.get_organization(g, "test")
 
         repository = dsegithub.repository.create_repository(org, "test-repo")
-        folder = dsegithub.repository.create_folder(repository, "test-folder")
-        self.assertFalse(folder)
+        self.assertFalse(dsegithub.repository.create_folder(repository, "test-folder"))
 
     @patch.object(Github, "get_organization")
     def test_create_folder_exists(self, mock_github):
