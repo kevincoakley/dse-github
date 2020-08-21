@@ -81,3 +81,15 @@ def create_folder(repository, folder):
             return False
 
     return False
+
+
+def add_user(repository, user, permission="push"):
+    """
+    Grant User access to the Repository
+    :param repository: GitHub Repository instance
+    :param user: GitHub User instance
+    :param permission: "pull", "push" or "admin"
+    :return: None
+    """
+
+    return repository.add_to_collaborators(user, permission)

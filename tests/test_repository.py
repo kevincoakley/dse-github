@@ -7,6 +7,7 @@ from mock import MagicMock
 from mock import patch
 import dsegithub.organization
 import dsegithub.repository
+import dsegithub.user
 import unittest
 
 
@@ -131,5 +132,16 @@ class RepositoryTestCase(unittest.TestCase):
         org = dsegithub.organization.get_organization(g, "test")
 
         repository = dsegithub.repository.create_repository(org, "test-repo")
-        folder = dsegithub.repository.create_folder(repository, "test-folder")
-        self.assertFalse(folder)
+        self.assertFalse(dsegithub.repository.create_folder(repository, "test-folder"))
+
+    @patch.object(Github, "get_user", autospec=True)
+    @patch.object(Github, "get_organization")
+    def test_add_user(self, mock_organization, mock_user):
+        mock_organization().create_repo().add_to_collaborators.return_value = None
+
+        g = Github("abc123")
+        org = dsegithub.organization.get_organization(g, "test")
+
+        repository = dsegithub.repository.create_repository(org, "test-repo")
+        user = dsegithub.user.get_user(g, "test-user")
+        self.assertIsNone(dsegithub.repository.add_user(repository, user))
