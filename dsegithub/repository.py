@@ -25,6 +25,7 @@ def create_repository(organization, repository_name):
     :param repository_name: name of the repository to create
     :return: GitHub Repository instance
     """
+
     try:
         return organization.create_repo(repository_name, private=True)
     except GithubException:
@@ -37,6 +38,7 @@ def create_readme(repository):
     :param repository: GitHub Repository instance
     :return: True if README.md was created, otherwise False
     """
+
     message = "Added welcome message to README.md"
     content = (
         "%s\n========\n\nThis is your MAS-DSE Private GitHub Repository.\n\n"
@@ -66,6 +68,7 @@ def create_folder(repository, folder):
     :param folder: Name of the folder to create
     :return: True if README.md was created, otherwise False
     """
+
     message = "Created %s/README.md" % folder
     content = "%s\n======\n\nCourse directory for %s" % (folder, folder)
 

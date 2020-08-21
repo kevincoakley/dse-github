@@ -23,4 +23,5 @@ def add_repository(team, repository):
     :param repository: GitHub Repository instance
     :return: None
     """
+
     return team.add_to_repos(repository)
