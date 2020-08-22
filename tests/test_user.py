@@ -16,14 +16,14 @@ class UserTestCase(unittest.TestCase):
     @patch.object(Github, "get_user", autospec=True)
     def test_get_user(self, mock_github):
         fake_user = MagicMock(spec=NamedUser)
-        fake_user.name = "test"
+        fake_user.login = "test"
 
         mock_github.return_value = fake_user
 
         g = Github("abc123")
 
         user = dsegithub.user.get_user(g, "test")
-        self.assertEqual(user.name, "test")
+        self.assertEqual(user.login, "test")
 
     @patch.object(Github, "get_user", autospec=True)
     def test_get_unknown_user(self, mock_github):
