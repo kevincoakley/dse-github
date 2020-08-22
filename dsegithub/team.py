@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+import logging
+
+logger = logging.getLogger("dse_github.team")
+
 
 def create_get_team(organization, team_name):
     """
@@ -9,11 +13,16 @@ def create_get_team(organization, team_name):
     :return: GitHub Team instance
     """
 
+    logger.debug("Getting Team: %s" % team_name)
     for team in organization.get_teams():
         if team.name == team_name:
+            logger.info("Found Team: %s" % team.name)
             return team
 
-    return organization.create_team(team_name)
+    logger.debug("Team not found, creating team: %s" % team_name)
+    team = organization.create_team(team_name)
+    logger.info("Created Team: %s" % team.name)
+    return team
 
 
 def add_repository(team, repository):
@@ -24,4 +33,5 @@ def add_repository(team, repository):
     :return: None
     """
 
+    logger.info("Adding Repository %s to Team %s" % (repository.name, team.name))
     return team.add_to_repos(repository)

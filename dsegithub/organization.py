@@ -2,7 +2,10 @@
 
 from github.GithubException import BadCredentialsException
 from github.GithubException import UnknownObjectException
+import logging
 import sys
+
+logger = logging.getLogger("dse_github.organization")
 
 
 def get_organization(g, organization_name):
@@ -14,7 +17,9 @@ def get_organization(g, organization_name):
     """
 
     try:
+        logger.debug("Looking up Organization: %s" % organization_name)
         organization = g.get_organization(organization_name)
+        logger.debug("Found Organization: %s" % organization.name)
     except BadCredentialsException:
         sys.exit("Invalid GitHub Credentials!")
     except UnknownObjectException:

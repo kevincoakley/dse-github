@@ -33,11 +33,14 @@ def main():
 
     if args.access_token is not None:
         # or using an access token
+        logger.debug("Authenticating to GitHub using an access token")
         g = Github(args.access_token)
     else:
         # using username and password
+        logger.debug("Authenticating to GitHub using an username and password")
         g = Github(args.username, args.password)
 
+    # Read the csv file
     csv_repositories = dsegithub.csv.read_csv(args.file)
 
     # Get the MAS-DSE Organization
